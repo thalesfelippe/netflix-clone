@@ -5,6 +5,9 @@ import Input from '@/components/Input';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
+
 const Auth = () => {
     const router = useRouter();
     const [name, setName] = useState('');
@@ -60,33 +63,69 @@ const Auth = () => {
                         <div className="flex flex-col gap-4">
                             {variant === 'register' && (
                                 <Input
-                                label='Username' 
+                                label="Username" 
                                 onChange={(ev: any) => setName(ev.target.value)}
                                 id="name"
                                 value={name}
                             />
                             )}
                             <Input
-                                label='Email' 
+                                label="Email" 
                                 onChange={(ev: any) => setEmail(ev.target.value)}
                                 id="email"
-                                type='email'
+                                type="email"
                                 value={email}
                             />
                             <Input
-                                label='Password' 
+                                label="Password" 
                                 onChange={(ev: any) => setPassword(ev.target.value)}
                                 id="password"
-                                type='password'
+                                type="password"
                                 value={password}
                             />
                         </div>
-                        <button onClick={variant === 'login' ? login : register} className='bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition'>
+                        <button onClick={variant === 'login' ? login : register} className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
                             {variant === 'login' ? 'Login' : 'Sign Up'}
                         </button>
-                        <p className='text-neutral-500 mt-12'>
+                        <div className="flex flex-row items-center gap-4 mt-8 justify-center">
+                            <div
+                                onClick={() => signIn('google', { callbackUrl: '/' })}
+                                className="
+                                w-10
+                                h-10
+                                bg-white
+                                rounded-full
+                                flex
+                                items-center
+                                justify-center
+                                cursor-pointer
+                                hover:opacity-80
+                                transition
+                                "
+                            >
+                                <FcGoogle size={30}/>
+                            </div>
+                            <div
+                                onClick={() => signIn('github', { callbackUrl: '/' })}
+                                className="
+                                w-10
+                                h-10
+                                bg-white
+                                rounded-full
+                                flex
+                                items-center
+                                justify-center
+                                cursor-pointer
+                                hover:opacity-80
+                                transition
+                                "
+                            >
+                                <FaGithub size={30}/>
+                            </div>
+                        </div>
+                        <p className="text-neutral-500 mt-12">
                                 {variant === 'login' ? 'New around here?' : 'Already have an account?'}
-                            <span onClick={toggleVariant} className='text-white ml-1 hover:underline cursor-pointer'>
+                            <span onClick={toggleVariant} className="text-white ml-1 hover:underline cursor-pointer">
                                 {variant === 'login' ? 'Subscribe now.' : 'Login.'}
                             </span>
                         </p>
